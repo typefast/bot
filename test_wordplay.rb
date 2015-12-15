@@ -16,4 +16,9 @@ of the test.}
     assert_equal(%w{this is a test}, "this is a test".words)
     assert_equal(%w{these are mostly words}, "these are, mostly, words".words)
   end
+  
+  def test_sentence_choice
+    assert_equal('This is a great test', WordPlay.best_sentences(['This is a test', 'This is another test', 'This is a great test'], %w{test great this}))
+    assert_equal('This is a great test', WordPlay.best_sentences(['This is a great test'], %w{still the best}))
+  end
 end
