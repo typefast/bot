@@ -1,5 +1,5 @@
 require 'yaml'
-require 'wordplay'
+require './wordplay.rb'
 
 class Bot
   attr_reader :name
@@ -43,7 +43,7 @@ class Bot
             phrase.sub('*', WordPlay.switch_pronouns(matching_section))
           end
         else
-          responses << @data[:response][pattern]
+          responses << @data[:responses][pattern]
         end
       end
     end
