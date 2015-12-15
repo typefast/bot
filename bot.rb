@@ -21,7 +21,43 @@ class Bot
     random_response :farewell
   end
   
+  def response_to(input)
+    prepared_input = preprocess(input).downcase
+    sentence = best_sentence(prepared_input)
+    responses = possible_responses(sentence)
+  end
+  
   private 
+  
+  def possible_responses(sentence)
+    responses = []
+    @data[:responses].keys.each do |pattern|
+      next unless pattern.is_a?(String)
+      
+      if sentence.match('\b' + pattern.gsub(/\*/, '') + '\b')
+        responses << @data[:responses][pattern]
+      end
+    end
+    responses << @data[:responses][:default] if responses.empty?
+    responses.flatten
+  end
+  
+  def best_sentence(input)
+    hot_words = @data[:responses].keys.select do |k|
+      k.class == String && k =~ /^\w+$/
+    end
+    
+    WordPlay.best_sentences(input.sentences, hot_words)
+  end
+  
+  def preprocess(input)
+    perform_substitutions input
+  end
+  
+  def perform_substitutions(input)
+    @data[:presubs].each { |s| input.gsub!(s[0], s[1]) }
+    input
+  end
   
   def random_response(key)
     random_index = rand(@data[:responses][key].length)
