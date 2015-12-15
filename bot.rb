@@ -12,4 +12,19 @@ class Bot
       raise "Can't load bot data"
     end
   end
+  
+  def greeting 
+    random_response :greeting
+  end
+  
+  def farewell
+    random_response :farewell
+  end
+  
+  private 
+  
+  def random_response(key)
+    random_index = rand(@data[:responses][key].length)
+    @data[:responses][key][random_index].gsub(/\[name\]/, @name)
+  end
 end
