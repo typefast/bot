@@ -11,4 +11,9 @@ of sentence seperation. This is the end
 of the test.}
     assert_equal("This is the end of the test", test_text.sentences[2])
   end
+  
+  def test_words
+    assert_equal(%w{this is a test}, "this is a test".words)
+    assert_equal(%w{these are mostly words}, "these are, mostly, words".words)
+  end
 end
