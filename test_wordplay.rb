@@ -21,4 +21,12 @@ of the test.}
     assert_equal('This is a great test', WordPlay.best_sentences(['This is a test', 'This is another test', 'This is a great test'], %w{test great this}))
     assert_equal('This is a great test', WordPlay.best_sentences(['This is a great test'], %w{still the best}))
   end
+  
+  def test_basic_pronouns
+    assert_equal("i am a robot", WordPlay.switch_pronouns("you are a robot"))
+    assert_equal('you are a person', WordPlay.switch_pronouns("i am a person"))
+    assert_equal('i love you', WordPlay.switch_pronouns('you love me'))
+  end
+  
+  
 end
